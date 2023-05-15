@@ -1,0 +1,68 @@
+<pre>
+<font color="#95a5a6">&#47;*</font>
+<font color="#95a5a6"> &nbsp;Este código acionará o LED a partir de um botão push.</font>
+<font color="#95a5a6"> &nbsp;A leitura do estado do botão será feita via pino digital através da função digitalRead.</font>
+<font color="#95a5a6"> &nbsp;Quando o botão for pressionado, o LED se acenderá e a variável estado LED mudará, e assim, guardando a informação se o LED está aceso ou não.</font>
+<font color="#95a5a6">*&#47;</font>
+
+<font color="#434f54">&#47;&#47;Declaração de variáveis globais</font>
+
+<font color="#434f54">&#47;&#47;Armanzenamento do estado do LED entre ligado e desligado</font>
+<font color="#00979c">int</font> <font color="#000000">estadoLed</font> <font color="#434f54">=</font> <font color="#000000">0</font><font color="#000000">;</font>
+
+<font color="#434f54">&#47;&#47;Definição do pino onde será conectado o jumper do LED no Arduino</font>
+<font color="#00979c">int</font> <font color="#000000">pinoLed</font><font color="#434f54">=</font><font color="#000000">3</font><font color="#000000">;</font>
+
+<font color="#434f54">&#47;&#47;Definição do pino onde será conectado o jumper do botão no Arduino</font>
+<font color="#00979c">int</font> <font color="#000000">pinoBotao</font> <font color="#434f54">=</font> <font color="#000000">2</font><font color="#000000">;</font>
+
+<font color="#434f54">&#47;&#47;Função principal do Arduino. Nela as configurações são feitas.</font>
+<font color="#00979c">void</font> <font color="#5e6d03">setup</font><font color="#000000">(</font><font color="#000000">)</font>
+<font color="#000000">{</font>
+ &nbsp;<font color="#434f54">&#47;&#47;A função pinMode define o pino do botão como entrada</font>
+ &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">pinoBotao</font><font color="#434f54">,</font> <font color="#00979c">INPUT</font><font color="#000000">)</font><font color="#000000">;</font>
+
+ &nbsp;<font color="#434f54">&#47;&#47;A função pinMode define o pino do LED como saída</font>
+ &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">pinoLed</font><font color="#434f54">,</font> <font color="#00979c">OUTPUT</font><font color="#000000">)</font><font color="#000000">;</font>
+<font color="#000000">}</font>
+
+<font color="#434f54">&#47;&#47;Função que o sistema repete enquanto o Arduino estiver ligado. Inicia-se após a função setup</font>
+<font color="#00979c">void</font> <font color="#5e6d03">loop</font><font color="#000000">(</font><font color="#000000">)</font>
+<font color="#000000">{</font>
+ &nbsp;<font color="#95a5a6">&#47;*Condicional de quando o botão for pressionado</font>
+<font color="#95a5a6"> &nbsp;&nbsp;* Quando o botão for pressionado pelo usuário, a porta ficará em estado HIGH, e a condição será verdadeira</font>
+<font color="#95a5a6"> &nbsp;&nbsp;* Quando o botão for solto, a porta volta ao estado LOW e a condição será falsa.</font>
+<font color="#95a5a6"> &nbsp;&nbsp;* Quando a condicional é verdadeira, ela executa as instruções dadas no if</font>
+<font color="#95a5a6"> &nbsp;&nbsp;* Quando a condicional é falsa, ela executa as instruções dadas no else.</font>
+<font color="#95a5a6"> &nbsp;&nbsp;*&#47;</font>
+
+ &nbsp;<font color="#434f54">&#47;&#47; A função digitalRead lê a tensão em sua porta, e retorna HIGH quando a tensão é 5V, ou LOW quando a tensão for 0V.</font>
+ &nbsp;<font color="#5e6d03">if</font> <font color="#000000">(</font><font color="#d35400">digitalRead</font><font color="#000000">(</font><font color="#000000">pinoBotao</font><font color="#000000">)</font> <font color="#434f54">==</font> <font color="#00979c">HIGH</font><font color="#000000">)</font> <font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47;Condicional do estado do LED verificando se está HIGH ou LOW.</font>
+ &nbsp;&nbsp;&nbsp;<font color="#5e6d03">if</font> <font color="#000000">(</font><font color="#000000">estadoLed</font> <font color="#434f54">==</font> <font color="#00979c">HIGH</font><font color="#000000">)</font> <font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47;Se o LED estiver ligada</font>
+
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47;A função digitalWrite insere na porta a tensão definida no parâmetro. </font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47;Quando HIGH, o Arduino chaveia para 5V na porta; e quando LOW o Arduino chaveia para o 0V, ou GND.</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47;Desligar o LED</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLed</font><font color="#434f54">,</font> <font color="#00979c">LOW</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47;Altera a variável do Led para desligado</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">estadoLed</font> <font color="#434f54">=</font> <font color="#00979c">LOW</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;<font color="#000000">}</font> <font color="#5e6d03">else</font> <font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47;Se não estiver ligado, estará desligado</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47;Ligar o Led</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLed</font><font color="#434f54">,</font> <font color="#00979c">HIGH</font><font color="#000000">)</font><font color="#000000">;</font>
+
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47;Altera variável do estado do Led para ligado</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">estadoLed</font> <font color="#434f54">=</font> <font color="#00979c">HIGH</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;<font color="#000000">}</font>
+ &nbsp;<font color="#000000">}</font>
+
+ &nbsp;<font color="#434f54">&#47;&#47;Função que faz a contagem do tempo. 100ms para que o sistema conte e o loop não tenha várias repetições momentâneas e trave o sistema.</font>
+ &nbsp;<font color="#d35400">delay</font><font color="#000000">(</font><font color="#000000">100</font><font color="#000000">)</font><font color="#000000">;</font> 
+<font color="#000000">}</font>
+
+</pre>

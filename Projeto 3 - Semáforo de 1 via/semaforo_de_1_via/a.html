@@ -1,0 +1,67 @@
+<pre>
+<font color="#95a5a6">&#47;* Este código executa a automação de um semáforo com 3 LEDs. </font>
+<font color="#95a5a6"> * &nbsp;Inicia com o LED vermelho aceso e os outros apagados.</font>
+<font color="#95a5a6"> * &nbsp;O sistema conta 10 segundos, e após apaga o LED vermelho e acende o LED verde.</font>
+<font color="#95a5a6"> * &nbsp;O sistema conta 10 segundos, depois apaga o LED verde e acende o LED amarelo.</font>
+<font color="#95a5a6"> * &nbsp;O sistema conta 3 segundos e o sistema se repete continuamente através da função loop.</font>
+<font color="#95a5a6">*&#47;</font>
+
+<font color="#434f54">&#47;&#47;Declaração de variáveis globais</font>
+<font color="#434f54">&#47;&#47;Definição do pino onde será conectado o jumper do LED vermelho.</font>
+<font color="#00979c">int</font> <font color="#000000">pinoLedVermelho</font> <font color="#434f54">=</font> <font color="#000000">4</font><font color="#000000">;</font>
+
+<font color="#434f54">&#47;&#47;Definição do pino onde será conectado o jumper do LED amarelo.</font>
+<font color="#00979c">int</font> <font color="#000000">pinoLedAmarelo</font> <font color="#434f54">=</font> <font color="#000000">3</font><font color="#000000">;</font>
+
+<font color="#434f54">&#47;&#47;Definição do pino onde será conectado o jumper do LED verde.</font>
+<font color="#00979c">int</font> <font color="#000000">pinoLedVerde</font> <font color="#434f54">=</font> <font color="#000000">2</font><font color="#000000">;</font>
+
+<font color="#434f54">&#47;&#47;Função principal do código. Nela as configurações do circuito são feitas.</font>
+<font color="#00979c">void</font> <font color="#5e6d03">setup</font><font color="#000000">(</font><font color="#000000">)</font>
+<font color="#000000">{</font>
+ &nbsp;<font color="#434f54">&#47;&#47;A função pinMode define o pino do LED vermelho como saída.</font>
+ &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">pinoLedVermelho</font><font color="#434f54">,</font> <font color="#00979c">OUTPUT</font><font color="#000000">)</font><font color="#000000">;</font>
+
+ &nbsp;<font color="#434f54">&#47;&#47;A função pinMode define o pino do LED amarelo como saída.</font>
+ &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">pinoLedAmarelo</font><font color="#434f54">,</font> <font color="#00979c">OUTPUT</font><font color="#000000">)</font><font color="#000000">;</font>
+
+ &nbsp;<font color="#434f54">&#47;&#47;A função pinMode define o pino do LED verde como saída.</font>
+ &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">pinoLedVerde</font><font color="#434f54">,</font> <font color="#00979c">OUTPUT</font><font color="#000000">)</font><font color="#000000">;</font>
+<font color="#000000">}</font>
+
+<font color="#434f54">&#47;&#47;Função que o sistema repete enquanto o Arduino estiver ligado. Inicia-se após a função setup.</font>
+<font color="#00979c">void</font> <font color="#5e6d03">loop</font><font color="#000000">(</font><font color="#000000">)</font>
+<font color="#000000">{</font>
+ &nbsp;<font color="#434f54">&#47;&#47;Função digitalWrite acende o LED vermelho</font>
+ &nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedVermelho</font><font color="#434f54">,</font> <font color="#00979c">HIGH</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#434f54">&#47;&#47;Função digitalWrite mantém apagado o LED amarelo</font>
+ &nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedAmarelo</font><font color="#434f54">,</font> <font color="#00979c">LOW</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#434f54">&#47;&#47;Função digitalWrite mantém apagado o LED verde</font>
+ &nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedVerde</font><font color="#434f54">,</font> <font color="#00979c">LOW</font><font color="#000000">)</font><font color="#000000">;</font>
+
+ &nbsp;<font color="#434f54">&#47;&#47;A função delay faz o sistema contar 10 segundos e mantém o sistema inalterado.</font>
+ &nbsp;<font color="#434f54">&#47;&#47;Tempo para a troca entre a luz vermelha e verde.</font>
+ &nbsp;<font color="#d35400">delay</font><font color="#000000">(</font><font color="#000000">10000</font><font color="#000000">)</font><font color="#000000">;</font> 
+
+ &nbsp;<font color="#434f54">&#47;&#47;Função digitalWrite apaga o LED vermelho.</font>
+ &nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedVermelho</font><font color="#434f54">,</font> <font color="#00979c">LOW</font><font color="#000000">)</font><font color="#000000">;</font>
+
+ &nbsp;<font color="#434f54">&#47;&#47;Função digitalWrite acende o LED verde.</font>
+ &nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedVerde</font><font color="#434f54">,</font> <font color="#00979c">HIGH</font><font color="#000000">)</font><font color="#000000">;</font>
+
+ &nbsp;<font color="#434f54">&#47;&#47;A função delay faz o sistema contar 10 segundos e mantém o sistema inalterado.</font>
+ &nbsp;<font color="#434f54">&#47;&#47;Tempo para a troca entre a luz verde e amarela.</font>
+ &nbsp;<font color="#d35400">delay</font><font color="#000000">(</font><font color="#000000">10000</font><font color="#000000">)</font><font color="#000000">;</font>
+
+ &nbsp;<font color="#434f54">&#47;&#47;Função digitalWrite apaga o LED verde.</font>
+ &nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedVerde</font><font color="#434f54">,</font> <font color="#00979c">LOW</font><font color="#000000">)</font><font color="#000000">;</font>
+
+ &nbsp;<font color="#434f54">&#47;&#47;Função digitalWrite que acende o LED amarelo.</font>
+ &nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedAmarelo</font><font color="#434f54">,</font> <font color="#00979c">HIGH</font><font color="#000000">)</font><font color="#000000">;</font>
+
+ &nbsp;<font color="#434f54">&#47;&#47;A função delay faz o sistema contar 3 segundos e mantém o sistema inalterado.</font>
+ &nbsp;<font color="#434f54">&#47;&#47;Tempo para a troca entre a luz amarela e vermelha.</font>
+ &nbsp;<font color="#d35400">delay</font><font color="#000000">(</font><font color="#000000">3000</font><font color="#000000">)</font><font color="#000000">;</font>
+<font color="#000000">}</font>
+
+</pre>

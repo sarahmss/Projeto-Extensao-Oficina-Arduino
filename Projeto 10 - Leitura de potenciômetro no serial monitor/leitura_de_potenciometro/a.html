@@ -1,0 +1,40 @@
+<pre>
+<font color="#434f54">&#47;&#47;Declaração de variáveis globais</font>
+<font color="#434f54">&#47;&#47;Armazena o valor de leitura do potenciômetro</font>
+<font color="#00979c">int</font> <font color="#000000">leituraPot</font> <font color="#434f54">=</font> <font color="#000000">0</font><font color="#000000">;</font>
+<font color="#434f54">&#47;&#47;Armazena o valor de medido de tensão do potenciômetro</font>
+<font color="#00979c">float</font> <font color="#000000">tensaoPot</font> <font color="#434f54">=</font> <font color="#000000">0</font><font color="#000000">;</font>
+
+<font color="#434f54">&#47;&#47;pino de leitura do potenciômetro</font>
+<font color="#00979c">int</font> <font color="#000000">pinoPot</font> <font color="#434f54">=</font> <font color="#000000">A0</font><font color="#000000">;</font>
+
+<font color="#00979c">void</font> <font color="#5e6d03">setup</font><font color="#000000">(</font><font color="#000000">)</font>
+<font color="#000000">{</font>
+ &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">pinoPot</font><font color="#434f54">,</font> <font color="#00979c">INPUT</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;
+ &nbsp;<font color="#434f54">&#47;&#47;Inicia a comunicação com o Arduino com velocidade de 9600 bits&#47;segundo</font>
+ &nbsp;<b><font color="#d35400">Serial</font></b><font color="#434f54">.</font><font color="#d35400">begin</font><font color="#000000">(</font><font color="#000000">9600</font><font color="#000000">)</font><font color="#000000">;</font>
+
+<font color="#000000">}</font>
+<font color="#00979c">void</font> <font color="#5e6d03">loop</font><font color="#000000">(</font><font color="#000000">)</font>
+<font color="#000000">{</font>
+ &nbsp;<font color="#434f54">&#47;&#47;A função analogRead faz a leitura analógica do pino com ADC.</font>
+ &nbsp;<font color="#000000">leituraPot</font> <font color="#434f54">=</font> <font color="#d35400">analogRead</font><font color="#000000">(</font><font color="#000000">pinoPot</font><font color="#000000">)</font><font color="#000000">;</font>
+
+ &nbsp;<font color="#434f54">&#47;&#47;Apresenta o valor da variável no monitor serial e pula para próxima linha.</font>
+ &nbsp;<b><font color="#d35400">Serial</font></b><font color="#434f54">.</font><font color="#d35400">print</font><font color="#000000">(</font><font color="#005c5f">&#34;Valor leitura do ADC: &#34;</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<b><font color="#d35400">Serial</font></b><font color="#434f54">.</font><font color="#d35400">println</font><font color="#000000">(</font><font color="#000000">leituraPot</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;
+ &nbsp;<font color="#434f54">&#47;&#47;Conversão para o valor de tensão</font>
+ &nbsp;<font color="#000000">tensaoPot</font> <font color="#434f54">=</font> <font color="#000000">leituraPot</font><font color="#434f54">*</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">00488</font><font color="#000000">;</font>
+
+ &nbsp;<font color="#434f54">&#47;&#47;Apresenta o valor da variável no monitor serial e pula para próxima linha.</font>
+ &nbsp;<b><font color="#d35400">Serial</font></b><font color="#434f54">.</font><font color="#d35400">print</font><font color="#000000">(</font><font color="#005c5f">&#34;Tensão medida no potenciômetro&#34;</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<b><font color="#d35400">Serial</font></b><font color="#434f54">.</font><font color="#d35400">println</font><font color="#000000">(</font><font color="#000000">tensaoPot</font><font color="#000000">)</font><font color="#000000">;</font>
+
+ &nbsp;<font color="#434f54">&#47;&#47;Contagem de tempo dedicada entre cada leitura do potenciômetro</font>
+ &nbsp;<font color="#d35400">delay</font><font color="#000000">(</font><font color="#000000">200</font><font color="#000000">)</font><font color="#000000">;</font> 
+
+<font color="#000000">}</font>
+
+</pre>

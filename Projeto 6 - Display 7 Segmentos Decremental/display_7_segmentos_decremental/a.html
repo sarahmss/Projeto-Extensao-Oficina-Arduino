@@ -1,0 +1,93 @@
+<pre>
+<font color="#95a5a6">&#47;*</font>
+<font color="#95a5a6"> * Neste projeto, será utilizado um display de 7 segmentos com cátodo comum.</font>
+<font color="#95a5a6"> * É configurada todos os pinos do LED e analisado a combinação dos LEDs no display para a formação do dígito</font>
+<font color="#95a5a6"> * Quando iniciado o sistema, o display irá aparecer o valor 9</font>
+<font color="#95a5a6"> * Na medida que é apertado o botão, a variável contar e o display diminuirá em 1</font>
+<font color="#95a5a6"> * Quando a variável contar chegar a -1, a variável contar é redefiinida a 9, e o display mostrará o dígito 9, reiniciando a contagem.</font>
+<font color="#95a5a6"> * Neste exemplo, será utilizado funções, vetores e repetição for</font>
+<font color="#95a5a6">*&#47;</font>
+
+<font color="#95a5a6">&#47;*</font>
+<font color="#95a5a6"> * Observar se o display tem como ponto comum o ânodo ou cátodo. Neste protótipo é utilizado o cátodo comum.</font>
+<font color="#95a5a6"> * Caso seja ânodo comum, inverter os números 1 e 0 na matriz int numeros.</font>
+<font color="#95a5a6"> *&#47;</font>
+
+<font color="#434f54">&#47;&#47;Declaração de variáveis globais</font>
+<font color="#00979c">int</font> <font color="#000000">contar</font> <font color="#434f54">=</font> <font color="#000000">9</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47; Será a variável que armazenará o valor apresentado no Display</font>
+
+<font color="#00979c">int</font> <font color="#000000">pinoBotao</font> <font color="#434f54">=</font> <font color="#000000">12</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47; Pino de leitura do botão</font>
+
+&#09;&#09;&#09;&#09;&#09; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47;a,b,c,d,e,f,g</font>
+<font color="#00979c">int</font> <font color="#000000">pinoSegmentos</font><font color="#000000">[</font><font color="#000000">7</font><font color="#000000">]</font> <font color="#434f54">=</font> <font color="#000000">{</font><font color="#000000">2</font><font color="#434f54">,</font><font color="#000000">3</font><font color="#434f54">,</font><font color="#000000">4</font><font color="#434f54">,</font><font color="#000000">5</font><font color="#434f54">,</font><font color="#000000">6</font><font color="#434f54">,</font><font color="#000000">7</font><font color="#434f54">,</font><font color="#000000">8</font><font color="#000000">}</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47;Vetor com os pinos de acionamento do dispaly de 7 segmentos</font>
+
+<font color="#434f54">&#47;&#47;Matriz com a combinação dos números binários de acordo com os números decimais</font>
+<font color="#00979c">int</font> <font color="#000000">numeros</font><font color="#000000">[</font><font color="#000000">10</font><font color="#000000">]</font><font color="#000000">[</font><font color="#000000">7</font><font color="#000000">]</font><font color="#434f54">=</font><font color="#000000">{</font><font color="#000000">{</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#000000">}</font><font color="#434f54">,</font> <font color="#434f54">&#47;&#47;0</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">{</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#000000">}</font><font color="#434f54">,</font> <font color="#434f54">&#47;&#47;1</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">{</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#000000">}</font><font color="#434f54">,</font> <font color="#434f54">&#47;&#47;2</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">{</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#000000">}</font><font color="#434f54">,</font> <font color="#434f54">&#47;&#47;3</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">{</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#000000">}</font><font color="#434f54">,</font> <font color="#434f54">&#47;&#47;4</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">{</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#000000">}</font><font color="#434f54">,</font> <font color="#434f54">&#47;&#47;5</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">{</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#000000">}</font><font color="#434f54">,</font> <font color="#434f54">&#47;&#47;6</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">{</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#000000">}</font><font color="#434f54">,</font> <font color="#434f54">&#47;&#47;7</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">{</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#000000">}</font><font color="#434f54">,</font> <font color="#434f54">&#47;&#47;8</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">{</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#000000">}</font> <font color="#434f54">&#47;&#47;9</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">}</font><font color="#000000">;</font>
+
+<font color="#434f54">&#47;&#47;Função criada para quando chamada, acionar os LEDs do display exibindo o valor da variável contar</font>
+<font color="#00979c">void</font> <font color="#000000">acenderSegmentos</font><font color="#000000">(</font><font color="#000000">)</font><font color="#000000">{</font>
+ &nbsp;
+ &nbsp;<font color="#95a5a6">&#47;*A função for é uma estrutura de repetição que se repete verificando se a condição central for verdadeira.</font>
+<font color="#95a5a6"> &nbsp;&nbsp;* Enquanto a condição for falsa, a função for acrescenta 1 a variável local i e executa as instruções na função.</font>
+<font color="#95a5a6"> &nbsp;&nbsp;* O valor 7 corresponde ao tamanho do vetor pinoSegmentos que são 7 espaços.</font>
+<font color="#95a5a6"> &nbsp;&nbsp;*&#47;</font>
+ &nbsp;<font color="#5e6d03">for</font><font color="#000000">(</font><font color="#00979c">int</font> <font color="#000000">i</font><font color="#434f54">=</font><font color="#000000">0</font><font color="#000000">;</font><font color="#000000">i</font><font color="#434f54">&lt;</font><font color="#000000">7</font><font color="#000000">;</font><font color="#000000">i</font><font color="#434f54">++</font><font color="#000000">)</font><font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;<font color="#95a5a6">&#47;*Para cada segmento, lê-se o local do seu pino no vetor pinoSegmentos</font>
+<font color="#95a5a6"> &nbsp;&nbsp;&nbsp;&nbsp;*Para cada número para ser exibido, lê se a matriz numeros na linha com endereço da variável contar, e na coluna no qual o segmento atual na repetição está.</font>
+<font color="#95a5a6"> &nbsp;&nbsp;&nbsp;&nbsp;*Se for 1, o segmento irá ligar, se for 0, o segmento irá desligar.</font>
+<font color="#95a5a6"> &nbsp;&nbsp;&nbsp;&nbsp;*&#47;</font>
+ &nbsp;&nbsp;&nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoSegmentos</font><font color="#000000">[</font><font color="#000000">i</font><font color="#000000">]</font><font color="#434f54">,</font> <font color="#000000">numeros</font><font color="#000000">[</font><font color="#000000">contar</font><font color="#000000">]</font><font color="#000000">[</font><font color="#000000">i</font><font color="#000000">]</font><font color="#000000">)</font><font color="#000000">;</font> 
+ &nbsp;<font color="#000000">}</font>
+<font color="#000000">}</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color="#434f54">&#47;&#47; Função principal de configuração do sistema</font>
+<font color="#00979c">void</font> <font color="#5e6d03">setup</font><font color="#000000">(</font><font color="#000000">)</font>
+<font color="#000000">{</font>
+ &nbsp;<font color="#434f54">&#47;&#47;Atribuição do pino do botão como entrada</font>
+ &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">pinoBotao</font><font color="#434f54">,</font> <font color="#00979c">INPUT</font><font color="#000000">)</font><font color="#000000">;</font>
+
+ &nbsp;<font color="#434f54">&#47;&#47;Atribuição dos pinos do display como saidas.</font>
+ &nbsp;<font color="#95a5a6">&#47;*A função for é uma estrutura de repetição que se repete verificando se a condição central for verdadeira.</font>
+<font color="#95a5a6"> &nbsp;&nbsp;* Enquanto a condição for falsa, a função for acrescenta 1 a variável local i e executa as instruções na função.</font>
+<font color="#95a5a6"> &nbsp;&nbsp;* O valor 7 corresponde ao tamanho do vetor pinoSegmentos que são 7 espaços.</font>
+<font color="#95a5a6"> &nbsp;&nbsp;*&#47;</font>
+ &nbsp;<font color="#5e6d03">for</font><font color="#000000">(</font><font color="#00979c">int</font> <font color="#000000">i</font><font color="#434f54">=</font><font color="#000000">0</font><font color="#000000">;</font><font color="#000000">i</font><font color="#434f54">&lt;</font><font color="#000000">7</font><font color="#000000">;</font><font color="#000000">i</font><font color="#434f54">++</font><font color="#000000">)</font><font color="#000000">{</font>
+ &nbsp;&#09;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">pinoSegmentos</font><font color="#000000">[</font><font color="#000000">i</font><font color="#000000">]</font><font color="#434f54">,</font> <font color="#00979c">OUTPUT</font><font color="#000000">)</font><font color="#000000">;</font> &nbsp;
+ &nbsp;<font color="#000000">}</font>
+
+ &nbsp;<font color="#434f54">&#47;&#47;Função criada para acender o display com o valor armazenado na variável contar</font>
+ &nbsp;<font color="#000000">acenderSegmentos</font><font color="#000000">(</font><font color="#000000">)</font><font color="#000000">;</font>
+<font color="#000000">}</font>
+
+<font color="#434f54">&#47;&#47; Função de repetição contínua do sistema</font>
+<font color="#00979c">void</font> <font color="#5e6d03">loop</font><font color="#000000">(</font><font color="#000000">)</font>
+<font color="#000000">{</font>
+ &nbsp;<font color="#434f54">&#47;&#47;Condicional que verifica o estado do Botão. Se o botão for pressionado, diminuirá 1 na variável contar</font>
+ &nbsp;<font color="#5e6d03">if</font> <font color="#000000">(</font><font color="#d35400">digitalRead</font><font color="#000000">(</font><font color="#000000">pinoBotao</font><font color="#000000">)</font> <font color="#434f54">==</font> <font color="#00979c">HIGH</font><font color="#000000">)</font> <font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47;Argumento que acrescenta 1 na variável contar</font>
+ &nbsp;&nbsp;&nbsp;<font color="#000000">contar</font> <font color="#434f54">-=</font> <font color="#000000">1</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47;contar = contar - 1</font>
+
+ &nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47;Condicional que verifica se contar chegou a 0; Caso chegar, reinicia o valor para 9</font>
+ &nbsp;&nbsp;&nbsp;<font color="#5e6d03">if</font><font color="#000000">(</font><font color="#000000">contar</font><font color="#434f54">&lt;</font><font color="#000000">0</font><font color="#000000">)</font><font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">contar</font><font color="#434f54">=</font><font color="#000000">9</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;<font color="#000000">}</font>
+ &nbsp;<font color="#434f54">&#47;&#47;Função criada para acender o display com o valor armazenado na variável contar</font>
+ &nbsp;&nbsp;&nbsp;<font color="#000000">acenderSegmentos</font><font color="#000000">(</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#000000">}</font>
+ &nbsp;
+ &nbsp;<font color="#d35400">delay</font><font color="#000000">(</font><font color="#000000">100</font><font color="#000000">)</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47; Contagem de tempo dedicada para melhor desempenho do protótipo evitando o efeito boucing</font>
+<font color="#000000">}</font>
+
+
+</pre>

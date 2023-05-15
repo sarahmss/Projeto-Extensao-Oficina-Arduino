@@ -1,0 +1,100 @@
+<pre>
+<font color="#95a5a6">&#47;*</font>
+<font color="#95a5a6"> * Este código executa a automação de um semáforo com 3 LEDs, para a via principal, 2 LEDs, para a via do pedestre, e 1 botão.</font>
+<font color="#95a5a6"> * Inicia com o LED verde da via principal e o LED vermelho da via dos pedestres acesos e os outros apagados.</font>
+<font color="#95a5a6"> * O sistema monitora o sinal do pino do botão. Quando o botão for apertado, o sinal altera para HIGH e o sistema detecta.</font>
+<font color="#95a5a6"> * O sistema conta 3 segundos e apaga o LED verde da via principal e acende o LED amarelo.</font>
+<font color="#95a5a6"> * O sistema conta 3 segundos e apaga o LED amaarelo e acende o LED vermelho da via principal e o LED verde da via de pedestre.</font>
+<font color="#95a5a6"> * O sistema conta 15 segundos e o sistema se repete continuamente através da função loop.</font>
+<font color="#95a5a6">*&#47;</font>
+
+<font color="#434f54">&#47;&#47;Definição das variáveis globais</font>
+<font color="#434f54">&#47;&#47;Pinos do semáforo da via principal</font>
+<font color="#434f54">&#47;&#47;Pino do LED vermelho</font>
+<font color="#00979c">int</font> <font color="#000000">pinoLedVermelhoVia</font> <font color="#434f54">=</font> <font color="#000000">4</font><font color="#000000">;</font>
+<font color="#434f54">&#47;&#47;Pino do LED amarelo</font>
+<font color="#00979c">int</font> <font color="#000000">pinoLedAmareloVia</font> <font color="#434f54">=</font> <font color="#000000">3</font><font color="#000000">;</font>
+<font color="#434f54">&#47;&#47;Pino do LED verde</font>
+<font color="#00979c">int</font> <font color="#000000">pinoLedVerdeVia</font> <font color="#434f54">=</font> <font color="#000000">2</font><font color="#000000">;</font>
+
+<font color="#434f54">&#47;&#47;Pinos do semáforo da via de pedestres</font>
+<font color="#434f54">&#47;&#47;Pino do LED vermelho</font>
+<font color="#00979c">int</font> <font color="#000000">pinoLedVermelhoPedestre</font> <font color="#434f54">=</font> <font color="#000000">6</font><font color="#000000">;</font>
+<font color="#434f54">&#47;&#47;Pino do LED verde</font>
+<font color="#00979c">int</font> <font color="#000000">pinoLedVerdePedestre</font> <font color="#434f54">=</font> <font color="#000000">7</font><font color="#000000">;</font>
+
+<font color="#434f54">&#47;&#47;Pino do botão</font>
+<font color="#00979c">int</font> <font color="#000000">pinoBotao</font> <font color="#434f54">=</font> <font color="#000000">5</font><font color="#000000">;</font>
+
+<font color="#434f54">&#47;&#47;Função principal do código. Nela, os pinos são configurados.</font>
+<font color="#00979c">void</font> <font color="#5e6d03">setup</font><font color="#000000">(</font><font color="#000000">)</font>
+<font color="#000000">{</font>
+ &nbsp;<font color="#434f54">&#47;&#47;A função pinMode atribui o pino do LED vermelho como saída</font>
+ &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">pinoLedVermelhoVia</font><font color="#434f54">,</font> <font color="#00979c">OUTPUT</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#434f54">&#47;&#47;A função pinMode atribui o pino do LED amarelo como saída</font>
+ &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">pinoLedAmareloVia</font><font color="#434f54">,</font> <font color="#00979c">OUTPUT</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#434f54">&#47;&#47;A função pinMode atribui o pino do LED verde como saída &nbsp;</font>
+ &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">pinoLedVerdeVia</font><font color="#434f54">,</font> <font color="#00979c">OUTPUT</font><font color="#000000">)</font><font color="#000000">;</font>
+
+ &nbsp;<font color="#434f54">&#47;&#47;A função pinMode atribui o pino do LED vermelho como saída</font>
+ &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">pinoLedVermelhoPedestre</font><font color="#434f54">,</font> <font color="#00979c">OUTPUT</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#434f54">&#47;&#47;A função pinMode atribui o pino do LED verde como saída &nbsp;</font>
+ &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">pinoLedVerdePedestre</font><font color="#434f54">,</font> <font color="#00979c">OUTPUT</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;
+ &nbsp;<font color="#434f54">&#47;&#47;A função pinMode atribui o pino do botão como entrada</font>
+ &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">pinoBotao</font><font color="#434f54">,</font> <font color="#00979c">INPUT</font><font color="#000000">)</font><font color="#000000">;</font>
+<font color="#000000">}</font>
+
+ &nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47;Função que o sistema repete enquanto o Arduino estiver ligado. Inicia-se após a função setup</font>
+<font color="#00979c">void</font> <font color="#5e6d03">loop</font><font color="#000000">(</font><font color="#000000">)</font>
+<font color="#000000">{</font>
+ &nbsp;<font color="#434f54">&#47;&#47;Função que acenderá o LED verde da via</font>
+ &nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedVerdeVia</font><font color="#434f54">,</font> <font color="#00979c">HIGH</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#434f54">&#47;&#47;Função que manterá apagado o LED amarelo da via</font>
+ &nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedAmareloVia</font><font color="#434f54">,</font> <font color="#00979c">LOW</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#434f54">&#47;&#47;Função que manterá apagado o LED vermelho da via</font>
+ &nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedVermelhoVia</font><font color="#434f54">,</font> <font color="#00979c">LOW</font><font color="#000000">)</font><font color="#000000">;</font>
+
+ &nbsp;<font color="#434f54">&#47;&#47;Função que acenderá o LED vermelho do pedestre</font>
+ &nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedVermelhoPedestre</font><font color="#434f54">,</font> <font color="#00979c">HIGH</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#434f54">&#47;&#47;Função que manterá apagado o LED verde do pedestre</font>
+ &nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedVerdeVia</font><font color="#434f54">,</font> <font color="#00979c">LOW</font><font color="#000000">)</font><font color="#000000">;</font>
+
+ &nbsp;<font color="#95a5a6">&#47;*</font>
+<font color="#95a5a6"> &nbsp;&nbsp;* Quando for pressionado, a tensão será 5V e retornará nivel HIGH na leitura e mudará o sinal do semáforo.</font>
+<font color="#95a5a6"> &nbsp;&nbsp;* Quando não for pressionado o botão, a tensão será 0V e retornará nivel LOW, não mudando o sinal do semáforo</font>
+<font color="#95a5a6"> &nbsp;&nbsp;*&#47;</font>
+ &nbsp;<font color="#434f54">&#47;&#47;Condicional que verá se o botão foi pressionado através da função digitalRead que lerá a tensão no pino do botão. </font>
+ &nbsp;<font color="#5e6d03">if</font> <font color="#000000">(</font><font color="#d35400">digitalRead</font><font color="#000000">(</font><font color="#000000">pinoBotao</font><font color="#000000">)</font> <font color="#434f54">==</font> <font color="#00979c">HIGH</font><font color="#000000">)</font> <font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47;Faz contagem do tempo para troca de sinal do semáforo entre verde e amarelo</font>
+ &nbsp;&nbsp;&nbsp;<font color="#d35400">delay</font><font color="#000000">(</font><font color="#000000">3000</font><font color="#000000">)</font><font color="#000000">;</font> 
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47;Função que apagará o pino do LED verde da via</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedVerdeVia</font><font color="#434f54">,</font> <font color="#00979c">LOW</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47;Função que acenderá o pino do LED amarelo da via</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedAmareloVia</font><font color="#434f54">,</font> <font color="#00979c">HIGH</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47;Faz contagem do tempo dedicada para troca de sinal do semáforo entre amarelo e vermelho</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#d35400">delay</font><font color="#000000">(</font><font color="#000000">3000</font><font color="#000000">)</font><font color="#000000">;</font> 
+ &nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47;Função que apagará o pino do LED amarelo da via</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedAmareloVia</font><font color="#434f54">,</font> <font color="#00979c">LOW</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47;Função que acenderá o pino do LED vermelho da via</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedVermelhoVia</font><font color="#434f54">,</font> <font color="#00979c">HIGH</font><font color="#000000">)</font><font color="#000000">;</font>
+
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47;Função que apagará o LED vermelho do pedestre</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedVermelhoPedestre</font><font color="#434f54">,</font> <font color="#00979c">LOW</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47;Função que acenderá o LED verde do pedestre</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedVerdePedestre</font><font color="#434f54">,</font> <font color="#00979c">HIGH</font><font color="#000000">)</font><font color="#000000">;</font>
+
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47; Faz contagem do tempo dedicada para retornar a repetição do loop e trocar de sinal do semáforo da via entre verde e vermelho.</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#d35400">delay</font><font color="#000000">(</font><font color="#000000">15000</font><font color="#000000">)</font><font color="#000000">;</font> 
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">}</font>
+ &nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47;Função que faz o sistema contar o tempo de forma dedicada em 100ms para melhor desempenho do protótipo evitando o efeito boucing</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#d35400">delay</font><font color="#000000">(</font><font color="#000000">100</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;<font color="#000000">}</font>
+
+
+</pre>

@@ -1,0 +1,33 @@
+<pre>
+<font color="#434f54">&#47;&#47;Declaração de variáveis globais</font>
+<font color="#434f54">&#47;&#47;Valor de armazenamento do PWM</font>
+<font color="#00979c">int</font> <font color="#000000">valorPwm</font> <font color="#434f54">=</font> <font color="#000000">0</font><font color="#000000">;</font>
+
+<font color="#434f54">&#47;&#47;Pino do potenciometro</font>
+<font color="#00979c">int</font> <font color="#000000">pinoPot</font> <font color="#434f54">=</font> <font color="#000000">A0</font><font color="#000000">;</font>
+
+<font color="#434f54">&#47;&#47;Pino do LED</font>
+<font color="#00979c">int</font> <font color="#000000">pinoLed</font> <font color="#434f54">=</font> <font color="#000000">3</font><font color="#000000">;</font>
+
+<font color="#00979c">void</font> <font color="#5e6d03">setup</font><font color="#000000">(</font><font color="#000000">)</font>
+<font color="#000000">{</font>
+    &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">pinoPot</font><font color="#434f54">,</font> <font color="#00979c">INPUT</font><font color="#000000">)</font><font color="#000000">;</font>
+    &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">pinoLed</font><font color="#434f54">,</font> <font color="#00979c">OUTPUT</font><font color="#000000">)</font><font color="#000000">;</font>
+    &nbsp;
+    &nbsp;<font color="#434f54">&#47;&#47;Função que inicia o monitor serial com velocidade de 9600 bits&#47;segundo</font>
+    &nbsp;<b><font color="#d35400">Serial</font></b><font color="#434f54">.</font><font color="#d35400">begin</font><font color="#000000">(</font><font color="#000000">9600</font><font color="#000000">)</font><font color="#000000">;</font>
+<font color="#000000">}</font>
+
+<font color="#00979c">void</font> <font color="#5e6d03">loop</font><font color="#000000">(</font><font color="#000000">)</font>
+<font color="#000000">{</font>
+    &nbsp;<font color="#434f54">&#47;&#47;Função map converte o valor de um intervalo para outro intervalo</font>
+    &nbsp;<font color="#000000">valorPwm</font> <font color="#434f54">=</font> <font color="#d35400">map</font><font color="#000000">(</font><font color="#d35400">analogRead</font><font color="#000000">(</font><font color="#000000">pinoPot</font><font color="#000000">)</font><font color="#434f54">,</font> <font color="#000000">0</font><font color="#434f54">,</font> <font color="#000000">1023</font><font color="#434f54">,</font> <font color="#000000">0</font><font color="#434f54">,</font> <font color="#000000">255</font><font color="#000000">)</font><font color="#000000">;</font>
+
+    &nbsp;<font color="#434f54">&#47;&#47;Aciona LED com brilho variável relacionado a resistência do potenciometro</font>
+    &nbsp;<font color="#d35400">analogWrite</font><font color="#000000">(</font><font color="#000000">pinoLed</font><font color="#434f54">,</font> <font color="#000000">valorPwm</font><font color="#000000">)</font><font color="#000000">;</font>
+
+    &nbsp;<font color="#434f54">&#47;&#47;Contagem de tempo entre leitura de tensão do potenciômetro</font>
+    &nbsp;<font color="#d35400">delay</font><font color="#000000">(</font><font color="#000000">100</font><font color="#000000">)</font><font color="#000000">;</font> 
+<font color="#000000">}</font>
+    
+</pre>

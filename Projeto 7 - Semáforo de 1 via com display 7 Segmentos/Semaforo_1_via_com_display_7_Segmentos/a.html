@@ -1,0 +1,106 @@
+<pre>
+    <font color="#95a5a6">&#47;*</font>
+    <font color="#95a5a6"> * Neste projeto, será utilizado um display de 7 segmentos com cátodo comum usando a biblioteca Segment</font>
+    <font color="#95a5a6"> * Também será utilizado 3 LEDs para o semáforo da via e 2 LEDs para o semáforo de pedestres</font>
+    <font color="#95a5a6"> * Também usará 2 botões para o acionamento da parada da via.</font>
+    <font color="#95a5a6"> * É configurada todos os pinos do display através da biblioteca Segment.</font>
+    <font color="#95a5a6"> * Quando iniciado o sistema, o LED verde do semáforo da via liga, e o LED vermelho do semáforo dos pedestres liga também</font>
+    <font color="#95a5a6"> * Quando é apertado o botão, o sistema conta 3 segundos e desliga o LED vermelho e liga o LED amarelo da via.</font>
+    <font color="#95a5a6"> * O sistema conta mais 3 segundos e desliga o LED amarelo e liga o LED vermelho da via, e desliga o LED vermelho e liga o LED verde dos pedestres.</font>
+    <font color="#95a5a6"> * O sistema conta 10 segundos e em cada segundo o display mostrará o tempo restante a partir do 9</font>
+    <font color="#95a5a6"> * Quando chegar a 0, o display desliga, desliga o LED vermelho e acende o LED verde da via, e desliga o LED verde e acende o LED vermelho do pedestres.</font>
+    <font color="#95a5a6">*&#47;</font>
+    
+    <font color="#434f54">&#47;&#47;Inclusão da biblioteca Segment para o display</font>
+    <font color="#5e6d03">#include</font> <font color="#434f54">&lt;</font><b><font color="#d35400">Segment</font></b><font color="#434f54">.</font><font color="#000000">h</font><font color="#434f54">&gt;</font>
+    
+    <font color="#434f54">&#47;&#47;Declaração de variáveis globais</font>
+    <font color="#00979c">int</font> <font color="#000000">pinoBotao</font> <font color="#434f54">=</font> <font color="#000000">12</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47; Pino de leitura do botão</font>
+    
+    <font color="#434f54">&#47;&#47;Semáforo da via principal</font>
+    <font color="#00979c">int</font> <font color="#000000">pinoLedVerdeVia</font><font color="#434f54">=</font> <font color="#000000">9</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47; Pino de acionamento do LED verde da via principal</font>
+    <font color="#00979c">int</font> <font color="#000000">pinoLedAmareloVia</font><font color="#434f54">=</font> <font color="#000000">10</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47; Pino de acionamento do LED amarelo da via principal</font>
+    <font color="#00979c">int</font> <font color="#000000">pinoLedVermelhoVia</font><font color="#434f54">=</font> <font color="#000000">11</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47; Pino de acionamento do LED vermelho da via principal</font>
+    
+    <font color="#434f54">&#47;&#47;Pinos exclusivos do Arduino Mega e Due</font>
+    <font color="#434f54">&#47;&#47;Semáforo de pedestre</font>
+    <font color="#00979c">int</font> <font color="#000000">pinoLedVermelhoPedestre</font><font color="#434f54">=</font> <font color="#000000">22</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47; Pino de acionamento do LED vermelho da via principal</font>
+    <font color="#00979c">int</font> <font color="#000000">pinoLedVerdePedestre</font><font color="#434f54">=</font> <font color="#000000">24</font> <font color="#000000">;</font> <font color="#434f54">&#47;&#47; Pino de acionamento do LED verde da via principal</font>
+    
+    <font color="#434f54">&#47;&#47;Instanciado o objeto sevseg da biblioteca Segment. </font>
+    <font color="#434f54">&#47;&#47;Com ele, foi declarado os pinos do display na ordem das letras e o true indica que o display é de cátodo comum</font>
+    <font color="#434f54">&#47;&#47;Caso o display seja de ânodo comum, trocar o atributo true por false</font>
+    <b><font color="#d35400">Segment</font></b> <font color="#000000">sevseg</font><font color="#000000">(</font><font color="#000000">2</font><font color="#434f54">,</font> <font color="#000000">3</font><font color="#434f54">,</font> <font color="#000000">4</font><font color="#434f54">,</font> <font color="#000000">5</font><font color="#434f54">,</font> <font color="#000000">6</font><font color="#434f54">,</font> <font color="#000000">7</font><font color="#434f54">,</font> <font color="#000000">8</font><font color="#434f54">,</font> <font color="#00979c">true</font><font color="#000000">)</font><font color="#000000">;</font>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <font color="#434f54">&#47;&#47; Função principal de configuração do sistema</font>
+    <font color="#00979c">void</font> <font color="#5e6d03">setup</font><font color="#000000">(</font><font color="#000000">)</font>
+    <font color="#000000">{</font> &nbsp;
+     &nbsp;<font color="#434f54">&#47;&#47;Atribuição do pino do botão como entrada</font>
+     &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">pinoBotao</font><font color="#434f54">,</font> <font color="#00979c">INPUT</font><font color="#000000">)</font><font color="#000000">;</font>
+    
+     &nbsp;<font color="#434f54">&#47;&#47;Atribuição do pino do botão como entrada</font>
+     &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">pinoLedVerdeVia</font><font color="#434f54">,</font> <font color="#00979c">OUTPUT</font><font color="#000000">)</font><font color="#000000">;</font>
+    
+     &nbsp;<font color="#434f54">&#47;&#47;Atribuição do pino do botão como saída</font>
+     &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">pinoLedAmareloVia</font><font color="#434f54">,</font> <font color="#00979c">OUTPUT</font><font color="#000000">)</font><font color="#000000">;</font>
+    
+     &nbsp;<font color="#434f54">&#47;&#47;Atribuição do pino do botão como saída</font>
+     &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">pinoLedVermelhoVia</font><font color="#434f54">,</font> <font color="#00979c">OUTPUT</font><font color="#000000">)</font><font color="#000000">;</font>
+    
+     &nbsp;<font color="#434f54">&#47;&#47;Atribuição do pino do botão como saída</font>
+     &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">pinoLedVermelhoPedestre</font><font color="#434f54">,</font> <font color="#00979c">OUTPUT</font><font color="#000000">)</font><font color="#000000">;</font>
+    
+     &nbsp;<font color="#434f54">&#47;&#47;Atribuição do pino do botão como saída</font>
+     &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">pinoLedVerdePedestre</font><font color="#434f54">,</font> <font color="#00979c">OUTPUT</font><font color="#000000">)</font><font color="#000000">;</font>
+    
+     &nbsp;<font color="#434f54">&#47;&#47;Início do sistema dos semáforos</font>
+     &nbsp;<font color="#434f54">&#47;&#47;Acendimento do LED verde do semáforo da via</font>
+     &nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedVerdeVia</font><font color="#434f54">,</font><font color="#00979c">HIGH</font><font color="#000000">)</font><font color="#000000">;</font>
+     &nbsp;<font color="#434f54">&#47;&#47;Acendimento do LED vermelho do semáforo do pedestre</font>
+     &nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedVermelhoPedestre</font><font color="#434f54">,</font><font color="#00979c">HIGH</font><font color="#000000">)</font><font color="#000000">;</font>
+     &nbsp;
+    <font color="#000000">}</font>
+    
+    <font color="#434f54">&#47;&#47; Função de repetição contínua do sistema</font>
+    <font color="#00979c">void</font> <font color="#5e6d03">loop</font><font color="#000000">(</font><font color="#000000">)</font>
+    <font color="#000000">{</font>
+     &nbsp;<font color="#434f54">&#47;&#47;Condicional que verifica o estado do Botão. Se o botão for pressionado, mudará o sinal para amarelo</font>
+     &nbsp;<font color="#5e6d03">if</font> <font color="#000000">(</font><font color="#d35400">digitalRead</font><font color="#000000">(</font><font color="#000000">pinoBotao</font><font color="#000000">)</font> <font color="#434f54">==</font> <font color="#00979c">HIGH</font><font color="#000000">)</font> <font color="#000000">{</font>
+     &nbsp;&nbsp;&nbsp;<font color="#d35400">delay</font><font color="#000000">(</font><font color="#000000">3000</font><font color="#000000">)</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47;Contagem do tempo dedicada em espera para troca do sinal para amarelo</font>
+     &nbsp;&nbsp;&nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedVerdeVia</font><font color="#434f54">,</font><font color="#00979c">LOW</font><font color="#000000">)</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47;Desligar LED verde do semaforo da via</font>
+     &nbsp;&nbsp;&nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedAmareloVia</font><font color="#434f54">,</font><font color="#00979c">HIGH</font><font color="#000000">)</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47;Ligar o LED amarelo do semaforo da via</font>
+     &nbsp;&nbsp;&nbsp;
+     &nbsp;&nbsp;&nbsp;<font color="#d35400">delay</font><font color="#000000">(</font><font color="#000000">3000</font><font color="#000000">)</font><font color="#000000">;</font><font color="#434f54">&#47;&#47;Contagem do tempo dedicada em espera para troca do sinal para amarelo</font>
+     &nbsp;&nbsp;&nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedAmareloVia</font><font color="#434f54">,</font><font color="#00979c">LOW</font><font color="#000000">)</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47;Desligar o LED amarelo do semaforo da via</font>
+     &nbsp;&nbsp;&nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedVermelhoVia</font><font color="#434f54">,</font><font color="#00979c">HIGH</font><font color="#000000">)</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47;Ligar o LED vermelho do semaforo da via</font>
+     &nbsp;&nbsp;&nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedVermelhoPedestre</font><font color="#434f54">,</font><font color="#00979c">LOW</font><font color="#000000">)</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47;Desligar o LED vermelho do semaforo de pedestre</font>
+     &nbsp;&nbsp;&nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedVerdePedestre</font><font color="#434f54">,</font><font color="#00979c">HIGH</font><font color="#000000">)</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47;Ligar o LED verde do semaforo de pedestre</font>
+    
+     &nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47;Repetição que faz a contagem do tempo e aciona o display</font>
+     &nbsp;&nbsp;&nbsp;<font color="#5e6d03">for</font><font color="#000000">(</font><font color="#00979c">int</font> <font color="#000000">i</font><font color="#434f54">=</font><font color="#000000">9</font><font color="#000000">;</font><font color="#000000">i</font><font color="#434f54">&gt;=</font><font color="#000000">0</font><font color="#000000">;</font><font color="#000000">i</font><font color="#434f54">--</font><font color="#000000">)</font><font color="#000000">{</font>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47;Conversão de variável do int para char para a função da biblioteca</font>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#00979c">char</font> <font color="#000000">teste</font><font color="#000000">;</font>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#d35400">sprintf</font><font color="#000000">(</font><font color="#000000">teste</font><font color="#434f54">,</font><font color="#005c5f">&#34;%d&#34;</font><font color="#434f54">,</font><font color="#000000">i</font><font color="#000000">)</font><font color="#000000">;</font> 
+    
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47;Acionamento do display com valor do tempo restante</font>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sevseg</font><font color="#434f54">.</font><font color="#d35400">display</font><font color="#000000">(</font><font color="#000000">teste</font><font color="#000000">)</font><font color="#000000">;</font>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">contar</font><font color="#434f54">--</font><font color="#000000">;</font>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#d35400">delay</font><font color="#000000">(</font><font color="#000000">1000</font><font color="#000000">)</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47; Contagem de tempo em 1 segundo para exibição do tempo restante</font>
+     &nbsp;&nbsp;&nbsp;<font color="#000000">}</font>
+     &nbsp;
+     &nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedVermelhoVia</font><font color="#434f54">,</font><font color="#00979c">LOW</font><font color="#000000">)</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47;Desligar LED vermelho do semaforo da via</font>
+     &nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedVerdePedestre</font><font color="#434f54">,</font><font color="#00979c">LOW</font><font color="#000000">)</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47;Desligar LED verde do semaforo do pedestre</font>
+     &nbsp;
+     &nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedVerdeVia</font><font color="#434f54">,</font><font color="#00979c">HIGH</font><font color="#000000">)</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47;Ligar LED verde do semaforo da via</font>
+     &nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">pinoLedVermelhoPedestre</font><font color="#434f54">,</font><font color="#00979c">HIGH</font><font color="#000000">)</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47;Ligar LED vermelho do semaforo do pedestre</font>
+    
+     &nbsp;<font color="#434f54">&#47;&#47;Desliga o display</font>
+     &nbsp;<font color="#000000">sevseg</font><font color="#434f54">.</font><font color="#d35400">clear</font><font color="#000000">(</font><font color="#000000">)</font><font color="#000000">;</font>
+    
+     &nbsp;<font color="#000000">}</font>
+     &nbsp;
+     &nbsp;<font color="#d35400">delay</font><font color="#000000">(</font><font color="#000000">100</font><font color="#000000">)</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47; Contagem de tempo dedicada para melhor desempenho do protótipo evitando o efeito boucing</font>
+    <font color="#000000">}</font>
+    
+    </pre>
